@@ -8,6 +8,8 @@ class SpamPot(SMTPServer):
 	def process_message(self, peer, mailfrom, rcpttos, data):
 		filename = '%s-%d.txt'  % (datetime.now().strftime('%Y%m%d%H%M%S'), self.no)
 		f = open(filename, 'w')
+		f.write("MAIL FROM: %s \n" % mailfrom)
+		f.write("RCPT TO: %s \n" % rcpttos)
 		f.write(data)
 		f.close
 		print 'Email received at %s and saved as %s' % (datetime.now().strftime('%H:%M:%S'), filename)
